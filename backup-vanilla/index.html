@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Modern navbar design with elegant navigation icons, dark mode, and premium aesthetics">
+  <title>Modern Navbar Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Theme transition overlay -->
+  <div class="theme-overlay" id="theme-overlay"></div>
+
+  <nav class="navbar" id="main-navbar">
+    <!-- Left: Logo -->
+    <div class="navbar__logo" id="navbar-logo">
+      <span class="logo-text">F</span>
+    </div>
+
+    <!-- Center: Active indicator bar + Nav icons -->
+    <div class="navbar__center" id="navbar-center">
+      <div class="nav-icons-wrapper">
+        <!-- Sliding active indicator bar -->
+        <div class="active-indicator" id="active-indicator"></div>
+        <div class="nav-icons" id="nav-icons">
+          <a href="#" class="nav-icon-item active" id="nav-home" data-index="0" title="Home">
+            <span class="material-icons-outlined">home</span>
+          </a>
+          <a href="#" class="nav-icon-item" id="nav-gallery-icon" data-index="1" title="Gallery">
+            <span class="material-icons-outlined">collections</span>
+          </a>
+          <a href="#" class="nav-icon-item" id="nav-video" data-index="2" title="Video">
+            <span class="material-icons-outlined">videocam</span>
+          </a>
+          <a href="#" class="nav-icon-item" id="nav-edit" data-index="3" title="Edit">
+            <span class="material-icons-outlined">edit</span>
+          </a>
+          <a href="#" class="nav-icon-item" id="nav-stop" data-index="4" title="Stop">
+            <span class="material-icons-outlined">stop_circle</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Links + Dark Mode Toggle + Avatar -->
+    <div class="navbar__right" id="navbar-right">
+      <a href="#" class="nav-link" id="nav-gallery-link">
+        <span class="material-icons-outlined nav-link-icon">photo_camera</span>
+        <span class="nav-link-text">Gallery</span>
+      </a>
+      <a href="#" class="nav-link" id="nav-support-link">
+        <span class="material-icons-outlined nav-link-icon">support_agent</span>
+        <span class="nav-link-text">Support</span>
+      </a>
+      <!-- Dark Mode Toggle -->
+      <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <span class="material-icons-outlined theme-icon theme-icon--light">dark_mode</span>
+        <span class="material-icons-outlined theme-icon theme-icon--dark">light_mode</span>
+      </button>
+      <!-- Hamburger Toggle -->
+      <button class="hamburger-toggle" id="hamburger-toggle" title="Open navigation menu" aria-label="Open navigation menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <div class="avatar" id="user-avatar">
+        <img src="https://i.pravatar.cc/40?img=47" alt="User Avatar" />
+      </div>
+    </div>
+  </nav>
+
+  <!-- History Component -->
+  <section class="history" id="history-section">
+    <div class="history__label-container">
+      <div class="history__label">
+        <h2 class="history__title">History</h2>
+        <a href="#" class="history__view-all" id="history-view-all">View All</a>
+      </div>
+      <div class="history__separator"></div>
+    </div>
+    <div class="history__track" id="history-track">
+      <!-- Images injected by JS -->
+    </div>
+  </section>
+
+  <!-- Page content below -->
+  <main class="page-content">
+    <div class="workspace-container">
+      <!-- Sidebar Panel -->
+      <aside class="sidebar" id="prompter-sidebar">
+        <div class="sidebar__inner">
+          
+          <!-- Image / Video Toggle -->
+          <div class="sidebar__toggle">
+            <div class="toggle-slider" id="toggle-slider"></div>
+            <button class="toggle-btn active" id="btn-image" type="button">Image</button>
+            <button class="toggle-btn" id="btn-video" type="button">Video</button>
+          </div>
+
+          <!-- Prompt Box -->
+          <div class="sidebar__prompt-box">
+            <textarea class="sidebar__prompt-input" id="prompt-input" placeholder="Describe your imaginations to be converted to piece of art..."></textarea>
+            <button class="sidebar__generate-btn" id="generate-btn" type="button">
+              <span class="material-icons-outlined generate-icon">auto_awesome</span>
+              <span>Generate</span>
+            </button>
+          </div>
+
+          <!-- Quick Dropdowns -->
+          <div class="sidebar__tweaks">
+            <div class="tweak-item">
+              <label id="label-count-type"># Images</label>
+              <div class="custom-dropdown" id="dropdown-count" data-value="4">
+                <div class="custom-dropdown__trigger">
+                  <span class="custom-dropdown__selected">4</span>
+                  <span class="material-icons-outlined arrow">expand_more</span>
+                </div>
+                <div class="custom-dropdown__menu">
+                  <div class="custom-dropdown__item" data-value="1">1</div>
+                  <div class="custom-dropdown__item" data-value="2">2</div>
+                  <div class="custom-dropdown__item" data-value="3">3</div>
+                  <div class="custom-dropdown__item active" data-value="4">4</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tweak-item">
+              <label>Aspect</label>
+              <div class="custom-dropdown" id="dropdown-ratio" data-value="1-1">
+                <div class="custom-dropdown__trigger">
+                  <span class="custom-dropdown__selected">1:1</span>
+                  <span class="material-icons-outlined arrow">expand_more</span>
+                </div>
+                <div class="custom-dropdown__menu">
+                  <div class="custom-dropdown__item active" data-value="1-1">1:1</div>
+                  <div class="custom-dropdown__item" data-value="16-9">16:9</div>
+                  <div class="custom-dropdown__item" data-value="9-16">9:16</div>
+                  <div class="custom-dropdown__item" data-value="4-3">4:3</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tweak-item">
+              <label>Model</label>
+              <div class="custom-dropdown" id="dropdown-model" data-value="flux-ultra">
+                <div class="custom-dropdown__trigger">
+                  <span class="custom-dropdown__selected">Flux Ultra</span>
+                  <span class="material-icons-outlined arrow">expand_more</span>
+                </div>
+                <div class="custom-dropdown__menu">
+                  <div class="custom-dropdown__item active" data-value="flux-ultra">Flux Ultra</div>
+                  <div class="custom-dropdown__item" data-value="flux-schnell">Flux Schnell</div>
+                  <div class="custom-dropdown__item" data-value="sd-3-5">SD 3.5 Large</div>
+                  <div class="custom-dropdown__item" data-value="midjourney-v6">Midjourney v6</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion: Advance Settings -->
+          <div class="sidebar__accordion">
+            <button class="accordion-header" id="accordion-advance-header" type="button">
+              <span class="accordion-header-title">Advance</span>
+              <span class="material-icons-outlined arrow">expand_more</span>
+            </button>
+            <div class="accordion-content" id="accordion-advance-content">
+              <div class="accordion-inner">
+                <div class="form-group">
+                  <label>CFG Scale: <span id="val-cfg">7.5</span></label>
+                  <input type="range" id="setting-cfg" min="1" max="15" step="0.5" value="7.5">
+                </div>
+                <div class="form-group">
+                  <label>Steps: <span id="val-steps">30</span></label>
+                  <input type="range" id="setting-steps" min="10" max="60" step="5" value="30">
+                </div>
+                <div class="form-group">
+                  <label for="setting-negative">Negative Prompt</label>
+                  <textarea id="setting-negative" placeholder="Ugly, deformed, blurry, pixelated..."></textarea>
+                </div>
+                <!-- Video Settings (initially hidden) -->
+                <div class="form-group video-only-setting" style="display: none;">
+                  <label>Duration: <span id="val-duration">5s</span></label>
+                  <input type="range" id="setting-duration" min="5" max="15" step="5" value="5">
+                </div>
+                <div class="form-group video-only-setting" style="display: none;">
+                  <label>Motion Strength: <span id="val-motion">5</span></label>
+                  <input type="range" id="setting-motion" min="1" max="10" step="1" value="5">
+                </div>
+                <div class="form-group video-only-setting" style="display: none;">
+                  <label>Camera Motion</label>
+                  <div class="custom-dropdown" id="dropdown-camera" data-value="zoom-in">
+                    <div class="custom-dropdown__trigger">
+                      <span class="custom-dropdown__selected">Zoom In</span>
+                      <span class="material-icons-outlined arrow">expand_more</span>
+                    </div>
+                    <div class="custom-dropdown__menu">
+                      <div class="custom-dropdown__item active" data-value="zoom-in">Zoom In</div>
+                      <div class="custom-dropdown__item" data-value="zoom-out">Zoom Out</div>
+                      <div class="custom-dropdown__item" data-value="pan-left">Pan Left</div>
+                      <div class="custom-dropdown__item" data-value="pan-right">Pan Right</div>
+                      <div class="custom-dropdown__item" data-value="tilt-up">Tilt Up</div>
+                      <div class="custom-dropdown__item" data-value="tilt-down">Tilt Down</div>
+                      <div class="custom-dropdown__item" data-value="static">Static</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion: Styles -->
+          <div class="sidebar__accordion">
+            <button class="accordion-header" id="accordion-styles-header" type="button">
+              <span class="accordion-header-title">Styles</span>
+              <span class="material-icons-outlined arrow">expand_more</span>
+            </button>
+            <div class="accordion-content" id="accordion-styles-content">
+              <div class="accordion-inner">
+                <div class="styles-grid">
+                  <button class="style-badge active" data-style="photorealistic" type="button">Photorealistic</button>
+                  <button class="style-badge" data-style="anime" type="button">Anime</button>
+                  <button class="style-badge" data-style="cyberpunk" type="button">Cyberpunk</button>
+                  <button class="style-badge" data-style="watercolor" type="button">Watercolor</button>
+                  <button class="style-badge" data-style="3d-render" type="button">3D Render</button>
+                  <button class="style-badge" data-style="oil-painting" type="button">Oil Painting</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- Main Generation Workspace -->
+      <section class="workspace" id="workspace-area">
+        <div class="workspace__scrollable" id="workspace-scrollable">
+          
+          <!-- Default Row (Mock of redhead woman generation) -->
+          <div class="generation-row">
+            <div class="generation-row__info">
+              <p class="generation-row__prompt">A professional portrait photograph of a smiling 31-year-old redheaded woman with warm brown eyes and softly tousled auburn hair framing her face. She is turned slightly towards the viewer, offering a genuine and approachable expression. She is wearing a cream-colored cashmere sweater and delicate gold earrings. The background is a softly blurred expanse of muted gray and beige tones, suggesting a modern art gallery. There is subtle directional lighting.</p>
+              <div class="generation-row__badge-wrapper">
+                <span class="generation-row__model-badge">Flux Ultra</span>
+              </div>
+            </div>
+            <div class="generation-row__images-grid layout-1-1">
+              <div class="workspace-card loaded">
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=350&auto=format&fit=crop&q=80" alt="Generated AI redhead 1" class="loaded">
+              </div>
+              <div class="workspace-card loaded">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=350&auto=format&fit=crop&q=80" alt="Generated AI redhead 2" class="loaded">
+              </div>
+              <div class="workspace-card loaded">
+                <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=350&auto=format&fit=crop&q=80" alt="Generated AI redhead 3" class="loaded">
+              </div>
+              <div class="workspace-card loaded">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=350&auto=format&fit=crop&q=80" alt="Generated AI redhead 4" class="loaded">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobile-menu">
+    <div class="mobile-menu__header">
+      <span class="logo-text">F</span>
+      <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">
+        <span class="material-icons-outlined">close</span>
+      </button>
+    </div>
+    <div class="mobile-menu__content">
+      <nav class="mobile-menu__nav">
+        <a href="#" class="mobile-menu__link active" data-target="home">
+          <span class="material-icons-outlined">home</span>
+          <span>Home</span>
+        </a>
+        <a href="#" class="mobile-menu__link" data-target="gallery-icon">
+          <span class="material-icons-outlined">collections</span>
+          <span>Gallery</span>
+        </a>
+        <a href="#" class="mobile-menu__link" data-target="video">
+          <span class="material-icons-outlined">videocam</span>
+          <span>Video</span>
+        </a>
+        <a href="#" class="mobile-menu__link" data-target="edit">
+          <span class="material-icons-outlined">edit</span>
+          <span>Edit</span>
+        </a>
+        <a href="#" class="mobile-menu__link" data-target="stop">
+          <span class="material-icons-outlined">stop_circle</span>
+          <span>Stop</span>
+        </a>
+        <div class="mobile-menu__divider"></div>
+        <a href="#" class="mobile-menu__link" data-target="gallery-link">
+          <span class="material-icons-outlined">photo_camera</span>
+          <span>Camera Gallery</span>
+        </a>
+        <a href="#" class="mobile-menu__link" data-target="support-link">
+          <span class="material-icons-outlined">support_agent</span>
+          <span>Support</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
