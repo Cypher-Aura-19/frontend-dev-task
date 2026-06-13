@@ -110,6 +110,7 @@ body {
   background-color: var(--bg-page);
   color: var(--color-text);
   height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height on mobile to account for browser chrome */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -571,6 +572,8 @@ a {
   padding: 14px 24px;
   overflow: hidden;
   transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  /* Prevent sticky navbar from covering history when page scrolls */
+  scroll-margin-top: var(--navbar-height);
 }
 
 .history__label-container {
@@ -1652,7 +1655,8 @@ a {
   /* Stack layout vertically to prevent layout cramping */
   .workspace-container {
     flex-direction: column;
-    overflow-y: auto;
+    overflow: visible; /* body handles page-level scrolling on tablet */
+    height: auto;
   }
 
   .sidebar {
@@ -1696,6 +1700,38 @@ a {
   .generation-row__images-grid.layout-4-3 {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* On tablet the full page can scroll — reserve space below sticky navbar */
+  .history {
+    margin-top: calc(var(--navbar-height) + 16px);
+  }
+
+  /* workspace-container starts right after history, no extra push needed */
+  .workspace-container {
+    padding-top: 0;
+  }
+
+  /* Allow body to scroll on tablet so sticky navbar + history layout works */
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Navbar must be fixed/sticky when body scrolls */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  /* page-content no longer needs to be overflow:hidden — let it size to content */
+  .page-content {
+    overflow: visible;
+    flex: none;
+  }
 }
 
 /* 3. Small Mobile Devices (width <= 768px) */
@@ -1713,12 +1749,13 @@ a {
   }
 
   /* Stack History label vertically on mobile to maximize image track width */
+  /* margin-top accounts for sticky navbar so history is never hidden behind it */
   .history {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
     padding: 12px 16px;
-    margin: 12px var(--navbar-padding-x) 16px;
+    margin: calc(var(--navbar-height) + 12px) var(--navbar-padding-x) 16px;
   }
 
   .history__label-container {

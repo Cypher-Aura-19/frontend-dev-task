@@ -1051,8 +1051,8 @@ const StyleBadge = React.memo(({ styleKey, label, active, toggleActive }) => (
 StyleBadge.displayName = "StyleBadge";
 
 // Workspace component (scrolling list of rows)
-const Workspace = React.memo(({ generations }) => (
-  <section className="workspace" id="workspace-area">
+const Workspace = React.memo(({ generations, workspaceRef }) => (
+  <section className="workspace" id="workspace-area" ref={workspaceRef}>
     <div className="workspace__scrollable" id="workspace-scrollable">
       {generations.map((row) => (
         <GenerationRow key={row.id} row={row} />
@@ -1201,6 +1201,7 @@ MobileMenu.displayName = "MobileMenu";
 
 export default function Home() {
   const isInitialIndicatorRender = useRef(true);
+  const workspaceRef = useRef(null);
   // Global States
   const [theme, setTheme] = useState("light");
   const [activeTab, setActiveTab] = useState("home");
@@ -1570,6 +1571,14 @@ export default function Home() {
       // Prepend to generations
       setGenerations((prev) => [newRow, ...prev]);
 
+      // On mobile/tablet the workspace is below the sidebar — scroll it into view
+      // so the user can watch the loading animation and generation.
+      requestAnimationFrame(() => {
+        if (workspaceRef.current && window.innerWidth < 1024) {
+          workspaceRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+
       // Video items are loaded individually in VideoWorkspaceCard. Once each loads,
       // it adds itself to history track. We can simulate adding the video history cards
       // with a slight staggered delay to mimic completion.
@@ -1620,6 +1629,14 @@ export default function Home() {
       };
 
       setGenerations((prev) => [newRow, ...prev]);
+
+      // On mobile/tablet the workspace is below the sidebar — scroll it into view
+      // so the user can watch the loading animation and generation.
+      requestAnimationFrame(() => {
+        if (workspaceRef.current && window.innerWidth < 1024) {
+          workspaceRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
 
       // Simulate network synthesis duration delay
       setTimeout(() => {
@@ -1703,7 +1720,7 @@ export default function Home() {
             selectedStyles={selectedStyles}
             onToggleStyle={handleToggleStyle}
           />
-          <Workspace generations={generations} />
+          <Workspace generations={generations} workspaceRef={workspaceRef} />
         </div>
       </main>
 
